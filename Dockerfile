@@ -19,7 +19,7 @@
 #
 # Build the Docker image:
 #
-#   PROJECT=$(basename `pwd`) && docker image build -t $PROJECT-image . --build-arg user_id=`id -u` --build-arg group_id=`id -g` --build-arg TZ=Asia/Tokyo
+#   PROJECT=$(basename `pwd`) && docker image build --no-cache -t $PROJECT-image . --build-arg user_id=`id -u` --build-arg group_id=`id -g` --build-arg TZ=Asia/Tokyo
 #
 # Start the Docker container:
 #
