@@ -40,7 +40,7 @@
 #
 # ## Launch Claude
 #
-#   claude
+#   claude --dangerously-skip-permissions
 #
 # ## Connect from Visual Studio Code
 #
