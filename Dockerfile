@@ -12,8 +12,16 @@
 #
 # ## Preparation
 #
+# ### SSH Agent
+#
 # Uses ssh-agent. Please refer to the link and configure your host OS.
 #   https://github.com/uraitakahito/hello-docker/blob/26a7813c90d0c02f321a28336536f0f5d152c93d/README.md#ssh-git-clone-from-github-inside-docker
+#
+# ### Download the files required to build the Docker container
+#
+#   curl -L -O https://raw.githubusercontent.com/uraitakahito/claude-code-docker/refs/heads/main/Dockerfile
+#   curl -L -O https://raw.githubusercontent.com/uraitakahito/claude-code-docker/refs/heads/main/docker-entrypoint.sh
+#   chmod 755 docker-entrypoint.sh
 #
 # ## From Docker build to login
 #
