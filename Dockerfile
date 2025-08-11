@@ -128,7 +128,7 @@ USER ${user_name}
 # dotfiles
 #
 RUN cd /home/${user_name} && \
-  git clone --depth 1 ${dotfiles_repository} && \
+  git clone --recursive --depth 1 ${dotfiles_repository} && \
   dotfiles/install.sh
 
 #
