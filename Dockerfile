@@ -40,12 +40,6 @@
 # About fdshell:
 #   https://github.com/uraitakahito/dotfiles/blob/37c4142038c658c468ade085cbc8883ba0ce1cc3/zsh/myzshrc#L93-L101
 #
-# ## Change socket permissions
-#
-# Change the socket permissions. This is not ideal, so let me know if there is a better way.
-#
-#   sudo chmod 777 $SSH_AUTH_SOCK
-#
 # ## Launch Claude
 #
 #   claude --dangerously-skip-permissions
