@@ -29,9 +29,15 @@
 #
 #   PROJECT=$(basename `pwd`) && docker image build --no-cache -t $PROJECT-image . --build-arg user_id=`id -u` --build-arg group_id=`id -g` --build-arg TZ=Asia/Tokyo
 #
+# Create a volume to persist the command history executed inside the Docker container.
+# It is stored in the volume because the dotfiles configuration redirects the shell history there.
+#   https://github.com/uraitakahito/dotfiles/blob/b80664a2735b0442ead639a9d38cdbe040b81ab0/zsh/myzshrc#L298-L305
+#
+#   docker volume create $PROJECT-zsh-history
+#
 # Start the Docker container:
 #
-#   docker container run -d --rm --init -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent --env-file ~/.env --mount type=bind,src=`pwd`,dst=/app --name $PROJECT-container $PROJECT-image
+#   docker container run -d --rm --init -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent --env-file ~/.env --mount type=bind,src=`pwd`,dst=/app --mount type=volume,source=$PROJECT-zsh-history,target=/zsh-volume --name $PROJECT-container $PROJECT-image
 #
 # Log in to Docker:
 #
@@ -39,6 +45,10 @@
 #
 # About fdshell:
 #   https://github.com/uraitakahito/dotfiles/blob/37c4142038c658c468ade085cbc8883ba0ce1cc3/zsh/myzshrc#L93-L101
+#
+# Only for the first startup, change the owner of the command history folder:
+#
+#   sudo chown -R $(id -u):$(id -g) /zsh-volume
 #
 # ## Launch Claude
 #
