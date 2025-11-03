@@ -15,7 +15,7 @@
 # ### SSH Agent
 #
 # Uses ssh-agent. Please refer to the link and configure your host OS.
-#   https://github.com/uraitakahito/hello-docker/blob/26a7813c90d0c02f321a28336536f0f5d152c93d/README.md#ssh-git-clone-from-github-inside-docker
+#   https://github.com/uraitakahito/hello-docker/blob/adcd426b6b65d8965e7f041d6846e0778d80280a/README.md#ssh-git-clone-from-github-inside-docker
 #
 # ### Download the files required to build the Docker container
 #
