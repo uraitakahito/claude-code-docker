@@ -14,8 +14,13 @@
 #
 # ### SSH Agent
 #
-# Uses ssh-agent. Please refer to the link and configure your host OS.
-#   https://github.com/uraitakahito/hello-docker/blob/adcd426b6b65d8965e7f041d6846e0778d80280a/README.md#ssh-git-clone-from-github-inside-docker
+# Uses ssh-agent. After a restart, if you have not yet initiated an SSH login from your Mac, run the following command on the Mac.
+#
+#   ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+#
+# For more details about ssh-agent, see:
+#
+#   https://github.com/uraitakahito/hello-docker/blob/c942ab43712dde4e69c66654eac52d559b41cc49/README.md
 #
 # ### Download the files required to build the Docker container
 #
