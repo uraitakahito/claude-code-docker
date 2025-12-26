@@ -113,6 +113,7 @@ RUN USERNAME=${user_name} \
 RUN cd /usr/src && \
   git clone --depth 1 ${extra_utils_repository} && \
   ADDEZA=true \
+  ADDHADOLINT=true \
     /usr/src/extra-utils/utils/install.sh
 
 COPY docker-entrypoint.sh /usr/local/bin/
@@ -158,6 +159,7 @@ ENV TZ="$TZ"
 #
 # Discussion about using nvm during Docker container build:
 #   https://stackoverflow.com/questions/25899912/how-to-install-nvm-in-docker
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN curl -fsSL https://claude.ai/install.sh | bash
 
 WORKDIR /app
