@@ -113,6 +113,7 @@ RUN USERNAME=${user_name} \
 RUN cd /usr/src && \
   git clone --depth 1 ${extra_utils_repository} && \
   ADDEZA=true \
+  ADDHADOLINT=true \
     /usr/src/extra-utils/utils/install.sh
 
 COPY docker-entrypoint.sh /usr/local/bin/
