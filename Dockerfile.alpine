@@ -1,3 +1,8 @@
+######################################
+# This file is scheduled for removal.
+# See ADR.md for the rationale.
+######################################
+#
 #
 # Alpine Linux Dockerfile to launch Claude Code
 #
