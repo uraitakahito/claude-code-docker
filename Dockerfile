@@ -6,7 +6,6 @@
 #
 # ## Features of this Dockerfile
 #
-# - Various customizations
 # - Not based on devcontainer; use by attaching VSCode to the container
 # - Assumes host OS is Mac
 #
