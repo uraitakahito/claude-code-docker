@@ -69,7 +69,7 @@
 #
 
 # Debian 12.12
-FROM debian:bookworm-20251020
+FROM debian:bookworm-20251208
 
 ARG user_name=developer
 ARG user_id
