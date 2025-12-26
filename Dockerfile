@@ -6,7 +6,6 @@
 #
 # ## Features of this Dockerfile
 #
-# - Various customizations
 # - Not based on devcontainer; use by attaching VSCode to the container
 # - Assumes host OS is Mac
 #
@@ -32,7 +31,7 @@
 #
 # Build the Docker image:
 #
-#   PROJECT=$(basename `pwd`) && docker image build --no-cache -t $PROJECT-image . --build-arg user_id=`id -u` --build-arg group_id=`id -g` --build-arg TZ=Asia/Tokyo
+#   PROJECT=$(basename `pwd`) && docker image build -t $PROJECT-image . --build-arg user_id=`id -u` --build-arg group_id=`id -g` --build-arg TZ=Asia/Tokyo
 #
 # Create a volume to persist the command history executed inside the Docker container.
 # It is stored in the volume because the dotfiles configuration redirects the shell history there.
@@ -70,7 +69,7 @@
 #
 
 # Debian 12.12
-FROM debian:bookworm-20251020
+FROM debian:bookworm-20251208
 
 ARG user_name=developer
 ARG user_id
@@ -149,16 +148,17 @@ RUN cd /home/${user_name} && \
   dotfiles/install.sh
 
 #
+# Timezone
+#
+ARG TZ
+ENV TZ="$TZ"
+
+#
 # Claude Code
 #
 # Discussion about using nvm during Docker container build:
 #   https://stackoverflow.com/questions/25899912/how-to-install-nvm-in-docker
-ARG TZ
-ENV TZ="$TZ"
-ENV NVM_DIR=/usr/local/share/nvm
-RUN bash -c "source $NVM_DIR/nvm.sh && \
-             nvm use ${node_version} && \
-             npm install -g @anthropic-ai/claude-code"
+RUN curl -fsSL https://claude.ai/install.sh | bash
 
 WORKDIR /app
 ENTRYPOINT ["docker-entrypoint.sh"]
