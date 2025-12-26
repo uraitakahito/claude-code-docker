@@ -148,16 +148,17 @@ RUN cd /home/${user_name} && \
   dotfiles/install.sh
 
 #
+# Timezone
+#
+ARG TZ
+ENV TZ="$TZ"
+
+#
 # Claude Code
 #
 # Discussion about using nvm during Docker container build:
 #   https://stackoverflow.com/questions/25899912/how-to-install-nvm-in-docker
-ARG TZ
-ENV TZ="$TZ"
-ENV NVM_DIR=/usr/local/share/nvm
-RUN bash -c "source $NVM_DIR/nvm.sh && \
-             nvm use ${node_version} && \
-             npm install -g @anthropic-ai/claude-code"
+RUN curl -fsSL https://claude.ai/install.sh | bash
 
 WORKDIR /app
 ENTRYPOINT ["docker-entrypoint.sh"]
