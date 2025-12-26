@@ -60,7 +60,7 @@
 #
 # Start the Docker daemon inside the container:
 #
-#   sudo dockerd &
+#   sudo /usr/local/share/docker-init.sh
 #
 # Verify Docker is running:
 #
@@ -89,6 +89,11 @@ ARG group_id
 ARG dotfiles_repository="https://github.com/uraitakahito/dotfiles.git"
 ARG features_repository="https://github.com/uraitakahito/features.git"
 ARG extra_utils_repository="https://github.com/uraitakahito/extra-utils.git"
+# Docker-in-Docker settings
+ARG DOCKER_VERSION="latest"
+ARG MOBY="true"
+ARG DOCKERDASHCOMPOSEVERSION="v2"
+ARG INSTALLDOCKERBUILDX="true"
 
 RUN apk add --no-cache git
 
@@ -110,13 +115,14 @@ RUN USERNAME=${user_name} \
       /usr/src/features/src/common-utils/install.sh
 
 #
-# Docker-in-Docker (Alpine packages)
+# Docker-in-Docker
 #
-RUN apk add --no-cache \
-    docker \
-    docker-cli-compose \
-    docker-cli-buildx && \
-    addgroup ${user_name} docker
+RUN VERSION=${DOCKER_VERSION} \
+    MOBY=${MOBY} \
+    DOCKERDASHCOMPOSEVERSION=${DOCKERDASHCOMPOSEVERSION} \
+    INSTALLDOCKERBUILDX=${INSTALLDOCKERBUILDX} \
+    USERNAME=${user_name} \
+      /usr/src/features/src/docker-in-docker/install.sh
 
 #
 # Install extra utils.
