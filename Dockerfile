@@ -40,8 +40,9 @@
 #   docker volume create $PROJECT-zsh-history
 #
 # Start the Docker container:
+# Note: --privileged is required for Docker-in-Docker support.
 #
-#   docker container run -d --rm --init -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent --env-file ~/.env --mount type=bind,src=`pwd`,dst=/app --mount type=volume,source=$PROJECT-zsh-history,target=/zsh-volume --name $PROJECT-container $PROJECT-image
+#   docker container run -d --rm --init --privileged -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent --mount type=bind,src=`pwd`,dst=/app --mount type=volume,source=$PROJECT-zsh-history,target=/zsh-volume --name $PROJECT-container $PROJECT-image
 #
 # Log in to Docker:
 #
@@ -53,6 +54,16 @@
 # Only for the first startup, change the owner of the command history folder:
 #
 #   sudo chown -R $(id -u):$(id -g) /zsh-volume
+#
+# ## Launch Docker-in-Docker
+#
+# Start the Docker daemon inside the container:
+#
+#   sudo /usr/local/share/docker-init.sh
+#
+# Verify Docker is running:
+#
+#   docker info
 #
 # ## Launch Claude
 #
@@ -80,6 +91,11 @@ ARG extra_utils_repository="https://github.com/uraitakahito/extra-utils.git"
 # Refer to the following URL for Node.js versions:
 #   https://nodejs.org/en/about/previous-releases
 ARG node_version="24.4.0"
+# Docker-in-Docker settings
+ARG DOCKER_VERSION="latest"
+ARG MOBY="true"
+ARG DOCKERDASHCOMPOSEVERSION="v2"
+ARG INSTALLDOCKERBUILDX="true"
 
 #
 # Git
@@ -106,6 +122,16 @@ RUN USERNAME=${user_name} \
     CONFIGUREZSHASDEFAULTSHELL=true \
     UPGRADEPACKAGES=false \
       /usr/src/features/src/common-utils/install.sh
+
+#
+# Docker-in-Docker
+#
+RUN VERSION=${DOCKER_VERSION} \
+    MOBY=${MOBY} \
+    DOCKERDASHCOMPOSEVERSION=${DOCKERDASHCOMPOSEVERSION} \
+    INSTALLDOCKERBUILDX=${INSTALLDOCKERBUILDX} \
+    USERNAME=${user_name} \
+      /usr/src/features/src/docker-in-docker/install.sh
 
 #
 # Install extra utils.
